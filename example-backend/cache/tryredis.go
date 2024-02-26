@@ -17,7 +17,7 @@ var ctx = context.Background()
 func TryRedis() (bool, error) {
 	if rdb == nil {
 		err := InitializeRedisClient()
-		if (err != nil) {
+		if err != nil {
 			return false, errors.New("[Ex 2.4+] Unable to create connection to redis")
 		}
 	}
@@ -41,9 +41,9 @@ func InitializeRedisClient() error {
 	}
 
 	fmt.Println("[Ex 2.4+] Initializing redis client")
-
+	fmt.Println("Here is the redis host ")
 	redisAddr := redisHost + ":6379"
-
+	fmt.Println(redisAddr)
 	rdb = redis.NewClient(&redis.Options{
 		Addr: redisAddr,
 	})
@@ -58,7 +58,7 @@ func InitializeRedisClient() error {
 			fmt.Println("[Ex 2.4+] Connection to redis failed! Retrying...")
 			time.Sleep(2 * time.Second)
 		} else {
-			return errors.New("[Ex 2.4+] Failing to connect to redis in "+redisAddr+". The error is:\n" + err.Error())
+			return errors.New("[Ex 2.4+] Failing to connect to redis in " + redisAddr + ". The error is:\n" + err.Error())
 		}
 	}
 	return nil
